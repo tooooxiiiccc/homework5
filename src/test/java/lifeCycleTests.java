@@ -2,17 +2,20 @@ import org.example.CreateUser;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-
 import java.time.LocalDateTime;
 import java.util.stream.Stream;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class lifeCycleTests {
     private String data;
-    private Stream<CreateUser> testUser() {
-        return Stream.of(new CreateUser("Danya","Morozov", "Vladislavovich"));
+    private static Stream<CreateUser> testUser() {
+        Stream.of(
+            new CreateUser("Danya","Morozov", "Vladislavovich"),
+            new CreateUser("Vlad", "Molodec", "Koksovich")
+        );
+        return Stream.of();
+
+
     }
 
     @BeforeAll
@@ -24,7 +27,7 @@ public class lifeCycleTests {
     void madeBeforeEach() {
         data = "Время";
         data = data + LocalDateTime.now();
-        CreateUser newUser = new CreateUser("Danil", "Vladislavovich", "Danil");
+        System.out.println(data);
     }
 
     @Test
@@ -56,6 +59,7 @@ public class lifeCycleTests {
     void addUser(CreateUser testUser) {
         System.out.println(testUser.getFirstName());
         assertTrue(testUser.getMiddleName().contains("Morozov"));
+        assertFalse(testUser.getLastName().contains("Molodec"));
     }
 
 }
