@@ -62,5 +62,12 @@ public class lifeCycleTests {
         assertFalse(testUser.getLastName().contains("Molodec"));
     }
 
+    @Test
+    void parallelTestExample(){
+        System.out.println("Log starts" + Thread.currentThread().getName() +
+            " | Time " + LocalDateTime.now());
+        assertEquals(1, 3);
+    }
+
 }
 
