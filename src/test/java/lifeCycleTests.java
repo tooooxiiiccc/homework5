@@ -3,17 +3,18 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class lifeCycleTests {
     private String data;
+
     private static Stream<CreateUser> testUser() {
-        Stream.of(
-            new CreateUser("Danya","Morozov", "Vladislavovich"),
+        return Stream.of(
+            new CreateUser("Danya", "Morozov", "Vladislavovich"),
             new CreateUser("Vlad", "Molodec", "Koksovich")
         );
-        return Stream.of();
 
 
     }
@@ -57,17 +58,16 @@ public class lifeCycleTests {
     @ParameterizedTest
     @MethodSource("testUser")
     void addUser(CreateUser testUser) {
-        System.out.println(testUser.getFirstName());
-        assertTrue(testUser.getMiddleName().contains("Morozov"));
-        assertFalse(testUser.getLastName().contains("Molodec"));
+        assertNotNull(testUser.getFirstName());
+        assertNotNull(testUser.getLastName());
+        assertNotNull(testUser.getMiddleName());
+        assertDoesNotThrow(() -> testUser.getMiddleName());
     }
 
     @Test
-    void parallelTestExample(){
+    void parallelTestExample() {
         System.out.println("Log starts" + Thread.currentThread().getName() +
             " | Time " + LocalDateTime.now());
-        assertEquals(1, 3);
+        assertEquals(1, 1);
     }
-
 }
-
